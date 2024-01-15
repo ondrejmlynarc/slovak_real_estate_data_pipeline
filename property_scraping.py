@@ -105,9 +105,7 @@ class Scraper:
         # df = pd.DataFrame(data_list)
         csv_data.seek(0)
         csv_content = csv_data.read()
-
         self.driver.quit()
-
         return csv_content
 
 
