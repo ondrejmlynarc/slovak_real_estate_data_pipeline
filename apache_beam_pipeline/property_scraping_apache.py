@@ -4,10 +4,10 @@ from apache_beam.options.pipeline_options import PipelineOptions, GoogleCloudOpt
 # Define pipeline options
 options = PipelineOptions()
 google_cloud_options = options.view_as(GoogleCloudOptions)
-google_cloud_options.project = 'real-estate-scraper'  # Update project ID here
-google_cloud_options.job_name = 'property_scraping_dataflow'
-google_cloud_options.staging_location = 'gs://beamproj/stage_files'
-google_cloud_options.temp_location = 'gs://beamproj/temp_files'
+google_cloud_options.project = 'scrapercloudrun'  # Update project ID here
+google_cloud_options.job_name = 'property-scraping-dataflow'
+google_cloud_options.staging_location = 'gs://real_estate_scraping/stage_files'  # Update staging location
+google_cloud_options.temp_location = 'gs://real_estate_scraping/temp_files'  # Update temp location
 
 # Define the BigQuery table schema
 table_schema = {
@@ -32,7 +32,7 @@ with beam.Pipeline(options=options) as pipeline:
     _ = (
         lines
         | 'WriteToBigQuery' >> beam.io.WriteToBigQuery(
-            table='scrapercloudrun:property_scraped',
+            table='real-estate-scraper:scrapercloudrun.property_scraped',
             schema=table_schema,
             create_disposition=beam.io.BigQueryDisposition.CREATE_IF_NEEDED,
             write_disposition=beam.io.BigQueryDisposition.WRITE_APPEND)
